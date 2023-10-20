@@ -1,0 +1,9 @@
+<?php
+include_once('engine.php');
+$html=str_replace("%subproc%",'home',$html);
+$html=str_replace("%thead%",'',$html);
+$html=str_replace("%tbody%",$body,$html);
+$html=str_replace("%report%",$report,$html);
+$html=str_replace("%debug%",$debug,$html);
+print($html);
+?>

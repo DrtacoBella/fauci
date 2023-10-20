@@ -1,0 +1,54 @@
+<table>
+	<form action=proc.php method=get>
+		<input type=hidden name=process value=link>
+		<tr>
+			<td>
+				Item Name
+			</td>
+			<td>
+				%item_list%
+			</td>
+			<td>
+				<a href="?subproc=record">add</a>
+			</td>
+			<tr>
+				<td>
+					Storage	
+				</td>
+				<td>
+					%location%
+				</td>
+				<td>
+					<a href="?subproc=storage">add</a>
+				</td>
+				<tr>
+					<td>
+						Zone
+					</td>
+					<td>
+						%zone%
+					</td>
+				</tr>
+				<tr>
+
+
+				<tr>
+					<td>
+						Count
+					</td>
+					<td>
+						<input type=text name=count value=1>
+					</td>
+				</tr>
+				<tr>
+
+					<! 
+					NOTE: count allocation
+					!>
+				</tr>
+				<tr>
+					<td>
+						<input type=submit>
+					</td>
+				</tr>
+</table>

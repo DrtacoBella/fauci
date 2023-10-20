@@ -1,0 +1,121 @@
+table {
+	border-collapse: collapse;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+table {
+	padding: 15px;
+}
+
+table td {
+	padding: 5px;
+}
+
+a{
+	text-decoration:none;
+}
+
+th {
+	background-color: #54585d;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 13px;
+	border: 1px solid #54585d;
+}
+
+table tbody td {
+	color: #636363;
+	border: 1px solid #dddfe1;
+}
+
+table tbody tr {
+	background-color: #f9fafb;
+}
+
+table tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+#menu {
+	width:80%;
+	margin:5px;
+	margin-bottom:10px;
+}
+
+span.menu{
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-style:solid;
+	border-width:1px;
+	border-style:solid;
+	background-color:#afff00;
+}
+
+.report-footer{
+	position: fixed;
+	bottom: 0;
+	background:red;
+	display: block;
+	width:100%;
+}
+
+@media screen {
+	div.divFooter {
+		display: none;
+		text-shadow: 0 0 5px #C8C8C8;
+	}
+}
+@media print {
+	div.divFooter {
+		position: fixed;
+		font-size:50%;
+		bottom: 0;
+		text-shadow: 0 0 5px #C8C8C8;
+	}
+}
+
+.report #report {
+	color:#04341D;
+	font-family:verdana;
+	font-size:8pt;
+}
+
+#report {
+	color:grey;	
+	color:#0095ff;
+}
+
+a {
+    position: relative;
+    font-family: monospace;
+    text-decoration: none;
+    color: green;
+    font-size: 1.5em;
+}
+
+.cursor {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background: black;
+    box-sizing: border-box;
+
+    -webkit-animation: typing 12s infinite;
+    animation: typing 12s infinite;
+}
+
+@-webkit-keyframes typing {
+    from,to { width: 100%; }
+    25% { width: 0; }
+    50% { width: 0; }
+    75% { width: 100%; }
+}
+
+@keyframes typing {
+    from { width: 100%; }
+    to { width: 0; }
+}

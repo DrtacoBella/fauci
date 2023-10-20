@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+		<title>Home Inventory: %subproc%</title>
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+	</head>
+	<body>
+		<form action=%action% method=%method%>
+			<input type=hidden name=proc value=%subproc%>
+			<h3>Home Inventory: %subproc%</h3>
+			<div id="menu">
+				<span class='menu'>
+					<a href=".">home</a>
+				</span>
+				<span class='menu'>
+					<a href="?subproc=record">add item</a>
+				</span>
+				<span class='menu'>
+					<a href="?subproc=storage">add storage</a>
+				</span>
+				<span class='menu'>
+					<a href="?subproc=link">store item</a>
+				</span>
+				<span class='menu'>
+					<input type=text name=search>
+				</span>
+			</div>
+			<table>
+				<thead>
+					%thead%
+				</thead>
+				<tbody>
+					%tbody%
+				</tbody>
+				<tfoot class="report-footer">
+					<span id='report'>update:</span><span class='report'> %report%</span>
+				</tfoot>
+			</table>
+			<div class="divFooter">%debug%</div>
+		</form>
+	</body>
+</html>
