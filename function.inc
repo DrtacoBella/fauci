@@ -1,6 +1,8 @@
 <?php
 // 
 // TODO: capture logs and session_debug messages
+include_once("conf.inc");
+//
 function debug($string){
     debug_print_backtrace();
 }
@@ -21,7 +23,7 @@ function lg($file){
 
 function q($query){
     $output = array();
-    $db = new SQLite3("db/test.db"); //NOTE: fix this for performance + close()
+    $db = new SQLite3("db/home.sqlite"); //NOTE: fix this for performance + close()
     $regex="/^insert|^update/i";
     if(preg_match($regex,$query,$out)){
         $q = $db->exec("$query",);
@@ -47,7 +49,7 @@ function q($query){
 /*
 // SQL
 class q{
-    public $db = new SQLite3('db/test.db');
+    public $db = new SQLite3('db/est.db');
     public $dbfile;
     public $console;
     public $query;

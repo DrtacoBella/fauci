@@ -1,4 +1,5 @@
 <?php
+include_once('conf.inc');
 include_once('function.inc');
 session_start();
 ini_set(' session.save_path','/dev/shm');
@@ -10,10 +11,15 @@ date_default_timezone_set('UTC');
 $now=date('l jS \of F Y h:i:s A');
 $ww=date('WY');
 
+//$dbf="db/home.sqlite";
 //NOTE: backup sql
-$db = new SQLite3('db/test.db');
+if(!file_exists($dbf)){
+    include_once('init_sqlite.php');
+}else{
+    $db = new SQLite3($dbf);
+}
 $dbm = new SQLite3(':memory:');
-$backup = new SQLite3("db/backup_ww$ww.sqlite");
+$backup = new SQLite3("$dbf$ww");
 $db->backup($backup);
 $backup->close();
 $db->close();
@@ -40,7 +46,7 @@ case "link":
         $fix_id=$row['item_id'];
         $fix=q("select items.count as total,(select sum(links.count) from links where item=$fix_id) as alloc  from items where item_id=$fix_id;");
         if($fix[0]['total']>$fix[0]['alloc'] || !$fix[0]['alloc']){
-        $item_list.="<option value=$row[item_id]>$row[item_name]</option>";
+            $item_list.="<option value=$row[item_id]>$row[item_name]</option>";
         }
     }
     $item_list.="</select>";

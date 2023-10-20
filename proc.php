@@ -1,8 +1,8 @@
 <?php
 
 // DB
-include_once('function.inc');
 include_once('conf.inc');
+include_once('function.inc');
 
 session_start();
 

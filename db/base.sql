@@ -1,13 +1,8 @@
-<?php
-$db = new SQLite3($dbf);
-$db->exec("
-
-CREATE TABLE IF NOT EXISTS projects (
+CREATE TABLE projects (
     project_id   INTEGER PRIMARY KEY AUTOINCREMENT,
     project_name TEXT    NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS tasks (
+CREATE TABLE tasks (
     task_id        INTEGER PRIMARY KEY AUTOINCREMENT,
     task_name      TEXT    NOT NULL,
     completed      INTEGER NOT NULL,
@@ -20,14 +15,12 @@ CREATE TABLE IF NOT EXISTS tasks (
 REFERENCES projects (project_id) ON UPDATE CASCADE
 ON DELETE CASCADE
 );
-
-create table if not exists product(
+CREATE TABLE product(
     p_id INTEGER PRIMARY KEY AUTOINCREMENT,
     product TEXT NOT NULL UNIQUE on conflict ignore,
     count INTEGER DEFAULT 1
 );
-
-create table if not exists items(
+CREATE TABLE items(
     item_id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_name INTEGER,
     cost INTEGER DEFAULT 0,
@@ -40,35 +33,27 @@ create table if not exists items(
     storage INTEGER,
     count INTEGER DEFAULT 1
 );
-
-create table if not exists storage(
+CREATE TABLE storage(
     str_id INTEGER PRIMARY KEY AUTOINCREMENT,
     str_name TEXT NOT NULL UNIQUE on conflict ignore
 );
-
-create table if not exists zone(
+CREATE TABLE zone(
     zone_id INTEGER PRIMARY KEY AUTOINCREMENT,
     zone_name TEXT NOT NULL,
     storage_id INTEGER,
     UNIQUE(zone_name,storage_id) on conflict replace
 );
-
-create table if not exists links(
+CREATE TABLE links(
     link_id INTEGER PRIMARY KEY AUTOINCREMENT,
 item INTEGER,
 storage INTEGER,
 zone INTEGER,
-count INTEGER,
 expire datetime,
-detail text,
+detail text, count not null default 0,
 UNIQUE(item,storage,zone) on conflict replace
 );
-
-create table if not exists tags(
+CREATE TABLE tags(
     tag_id INTEGER PRIMARY KEY AUTOINCREMENT,
     tag_name TEXT NOT NULL UNIQUE on conflict ignore
 );
-
-");
-$db->close();
-?>
+/* No STAT tables available */
