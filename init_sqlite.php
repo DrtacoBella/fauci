@@ -58,7 +58,7 @@ create table if not exists links(
 item INTEGER,
 storage INTEGER,
 zone INTEGER,
-count INTEGER,
+count not null default 1,
 expire datetime,
 detail text,
 UNIQUE(item,storage,zone) on conflict replace
