@@ -52,24 +52,12 @@ case "link":
     $item_list.="</select>";
 
     $lid=q("select str_id,str_name from storage");
-    //$location=("<select name=storage>");
     $location=("<select name=storage onchange=\"javascript: dynamicdropdown(this.options[this.selectedIndex].value)\">");
-    //$location.=("<script type=\"text/javascript\" language=\"JavaScript\">
-    //				document.write('<select name=\"status\" id=\"status\"><option value=\"\">Select status</option></select>')
-    //			</script>");
+        $location.="<option>selection storage</option>";
     foreach($lid as $row){
         $location.="<option value=$row[str_id]>$row[str_name]</option>";
     }
     $location.="</select>";
-
-
-    //$lid=q("select zone_id,zone_name,storage_id from zone");
-    //$zone=("<select name=zone id=zone>");
-    // $zone.="<option default value=>none</option>";
-    //foreach($lid as $row){
-    //   $zone.="<option value=$row[zone_id]>$row[zone_name]</option>";
-    // }
-    // $zone.="</select>";
 
     $zone='
                         <script type="text/javascript" language="JavaScript">
@@ -92,13 +80,13 @@ case "link":
         $arr[$row['sid']][$row['zid']]=$row['zone'];
     }
     foreach($arr as $key => $row){
-        $dyselect.="\n".'case "'.$key.'" :'."\r\n";
+        $dyselect.='case "'.$key.'" :';
         $c=0;
         foreach($row as $skey => $ar){
-            $dyselect.='document.getElementById("zone").options['.$c.']=new Option("'.$ar.'","'.$skey.'");'."\r\n";
+            $dyselect.='document.getElementById("zone").options['.$c.']=new Option("'.$ar.'","'.$skey.'");';
             $c=++$c;
         }
-        $dyselect.='break;'."\r\n";
+        $dyselect.='break;';
     }
 
     $body=str_replace("%item_list%",$item_list,$body);
