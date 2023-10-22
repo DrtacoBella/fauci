@@ -1,43 +1,78 @@
 <html>
-	<head>
-		<style type="text/css">
-		</style>
-		<title>Home Inventory: %subproc%</title>
-		<link rel="stylesheet" type="text/css" href="styles.css" />
-	</head>
-	<body>
-		<form action=%action% method=%method%>
-			<input type=hidden name=proc value=%subproc%>
-			<h3>Home Inventory: %subproc%</h3>
-			<div id="menu">
-				<span class='menu'>
-					<a href=".">home</a>
-				</span>
-				<span class='menu'>
-					<a href="?subproc=record">add item</a>
-				</span>
-				<span class='menu'>
-					<a href="?subproc=storage">add storage</a>
-				</span>
-				<span class='menu'>
-					<a href="?subproc=link">store item</a>
-				</span>
-				<span class='menu'>
-					<input type=text name=search>
-				</span>
-			</div>
-			<table>
-				<thead>
-					%thead%
-				</thead>
-				<tbody>
-					%tbody%
-				</tbody>
-				<tfoot class="report-footer">
-					<span id='report'>update:</span><span class='report'> %report%</span>
-				</tfoot>
-			</table>
-			<div class="divFooter">%debug%</div>
-		</form>
-	</body>
+		<head>
+				<style type="text/css">
+				</style>
+				<title>Home Inventory: %subproc%</title>
+				<link rel="stylesheet" type="text/css" href="styles.css" />
+
+				<script language="javascript" type="text/javascript">
+						function dynamicdropdown(listindex){
+														var select = document.getElementById("zone");
+														while (select.firstChild) {
+																						select.removeChild(select.firstChild);
+																				}
+														switch(listindex)
+														{
+																						%dselect%
+																				}
+														return true;
+												}
+				</script>
+
+		</head>
+		<body>
+				<form action=%action% method=%method%>
+						<input type=hidden name=proc value=%subproc%>
+						<h3>Home Inventory: %subproc%</h3>
+						<div id="menu">
+								<span class='menu'>
+										<a href=".">home</a>
+								</span>
+								<span class='menu'>
+										<a href="?subproc=record">add item</a>
+								</span>
+								<span class='menu'>
+										<a href="?subproc=storage">add storage</a>
+								</span>
+								<span class='menu'>
+										<a href="?subproc=link">store item</a>
+								</span>
+								<span class='menu'>
+										<input type=text name=search>
+								</span>
+						</div>
+						<table>
+								<thead>
+										%thead%
+								</thead>
+								<tbody>
+										%tbody%
+								</tbody>
+								<tfoot class="report-footer">
+										<span id='report'>update:</span><span class='report'> %report%</span>
+								</tfoot>
+						</table>
+						<div class="divFooter">%debug%</div>
+				</form>
+				<!--
+						<div class="category_div" id="category_div">Source:
+						<select id="source" name="source" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
+						<option value="">Select source</option>
+						<option value="manual">MANUAL</option>
+						<option value="online">ONLINE</option>
+						</select>
+						</div>
+						<div class="sub_category_div" id="sub_category_div">Status:
+						<script type="text/javascript" language="JavaScript">
+								document.write('<select name="status" id="status"><option value="">Select status</option></select>')
+						</script>
+						<noscript>
+								<select id="status" name="status">
+										<option value="open">OPEN</option>
+										<option value="delivered">DELIVERED</option>
+								</select>
+						</noscript>
+						</div>
+						-->
+		</body>
 </html>

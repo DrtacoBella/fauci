@@ -52,24 +52,60 @@ case "link":
     $item_list.="</select>";
 
     $lid=q("select str_id,str_name from storage");
-    $location=("<select name=storage>");
+    //$location=("<select name=storage>");
+    $location=("<select name=storage onchange=\"javascript: dynamicdropdown(this.options[this.selectedIndex].value)\">");
+    //$location.=("<script type=\"text/javascript\" language=\"JavaScript\">
+    //				document.write('<select name=\"status\" id=\"status\"><option value=\"\">Select status</option></select>')
+    //			</script>");
     foreach($lid as $row){
         $location.="<option value=$row[str_id]>$row[str_name]</option>";
     }
     $location.="</select>";
 
-    $lid=q("select zone_id,zone_name,storage_id from zone");
-    $zone=("<select name=zone>");
-    $zone.="<option default value=>none</option>";
+
+    //$lid=q("select zone_id,zone_name,storage_id from zone");
+    //$zone=("<select name=zone id=zone>");
+    // $zone.="<option default value=>none</option>";
+    //foreach($lid as $row){
+    //   $zone.="<option value=$row[zone_id]>$row[zone_name]</option>";
+    // }
+    // $zone.="</select>";
+
+    $zone='
+                        <script type="text/javascript" language="JavaScript">
+                                document.write(\'<select name="zone" id="zone"><option value="">Select status</option></select>\')
+                        </script>
+                        <noscript>
+                                <select id="zone" name="zone">
+                                        <option value="open">OPEN</option>
+                                        <option value="delivered">DELIVERED</option>
+                                </select>
+                        </noscript>
+';
+
+    // dynamic selections
+    //
+    $lid=q("select storage_id as sid,zone_id as zid,str_name as storage,zone_name as zone from storage join zone on storage_id = str_id");
+    $arr=array();
+    $dyselect="";
     foreach($lid as $row){
-        $zone.="<option value=$row[zone_id]>$row[zone_name]</option>";
+        $arr[$row['sid']][$row['zid']]=$row['zone'];
     }
-    $zone.="</select>";
+    foreach($arr as $key => $row){
+        $dyselect.="\n".'case "'.$key.'" :'."\r\n";
+        $c=0;
+        foreach($row as $skey => $ar){
+            $dyselect.='document.getElementById("zone").options['.$c.']=new Option("'.$ar.'","'.$skey.'");'."\r\n";
+            $c=++$c;
+        }
+        $dyselect.='break;'."\r\n";
+    }
 
     $body=str_replace("%item_list%",$item_list,$body);
     $body=str_replace("%location%",$location,$body);
     $body=str_replace("%zone%",$zone,$body);
     $html=str_replace("%action%","proc.php",$html);
+    $html=str_replace("%dselect%","$dyselect",$html);
     $html=str_replace("%method%","GET",$html);
     break;
 

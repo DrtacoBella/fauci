@@ -50,7 +50,7 @@ create table if not exists zone(
     zone_id INTEGER PRIMARY KEY AUTOINCREMENT,
     zone_name TEXT NOT NULL,
     storage_id INTEGER,
-    UNIQUE(zone_name,storage_id) on conflict replace
+    UNIQUE(zone_name,storage_id) on conflict ignore 
 );
 
 create table if not exists links(
@@ -61,7 +61,7 @@ zone INTEGER,
 count not null default 1,
 expire datetime,
 detail text,
-UNIQUE(item,storage,zone) on conflict replace
+UNIQUE(item,storage,zone) on conflict ignore 
 );
 
 create table if not exists tags(

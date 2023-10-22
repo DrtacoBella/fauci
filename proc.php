@@ -16,9 +16,9 @@ case "storage":
         $_SESSION['query_error']="ERROR: where is your storage space name";
         break;
     }
-    q("INSERT INTO storage(str_name) VALUES('$name')");
-    $lid=q("select seq from sqlite_sequence where name = 'storage'");
-    $id=($lid[0]['seq']);
+    q("insert into storage(str_name) values('$name')");
+    $lid=q("select str_id as sid from storage where str_name='$name'");
+    $id=($lid[0]['sid']);
     if($zone){
         debugc('in zone.');
         $zone_a = explode(',',$zone);
@@ -27,20 +27,20 @@ case "storage":
             if(count($zz) > 1){
                 for($i=0;$i<=$zz[1];$i++){
                     $label="$name,$zz[0]-$i";
-                    q("INSERT INTO zone(zone_name,storage_id) VALUES('$label',$id)");
+                    q("insert into zone(zone_name,storage_id) values('$label',$id)");
                     $zone_added=1;
                 }
             }elseif (preg_match('/^\d+$/',$zz[0])) {
                 for($i=0;$i<=$zz[0];$i++){
                     $label="$name,$i";
-                    q("INSERT INTO zone(zone_name,storage_id) VALUES('$label',$id)");
+                    q("insert into zone(zone_name,storage_id) values('$label',$id)");
                     $zone_added=1;
                 }
             }
         }
     }else{
         debugc('add none zone.');
-        q("INSERT INTO zone(zone_name,storage_id) VALUES('none',$id)");
+        q("insert into zone(zone_name,storage_id) values('none',$id)");
     }
     if(!$_SESSION['query_error']){
         $_SESSION['query_error']="successfully added storage space";
@@ -72,14 +72,14 @@ case "record":
     $name_id=$q[0]['p_id'];
     if(!$name_id){
         //NOTE: product table should NOT maintain count
-        q("INSERT INTO product(product,count) VALUES('$product','$count')");
+        q("insert into product(product,count) values('$product','$count')");
         $seq=q("select seq from sqlite_sequence where name = 'product'");
         $name_id=($seq[0]['seq']);
     }else{
         q("update product set count = count + $count where p_id = $name_id;");
     }
     debugc("step in record.");
-    q("INSERT INTO items(item_name,expire,count) VALUES('$name_id','$expire','$count')");
+    q("insert into items(item_name,expire,count) values('$name_id','$expire','$count')");
     if(!$_SESSION['query_error']){
         $_SESSION['query_error']="successfully added item/product";
     }
@@ -122,7 +122,7 @@ case "link":
         $lid=q("select zone_id from zone where storage_id=$storage");
         $zone=($lid[0]['zone_id']);
     }
-    q("INSERT INTO links(item,storage,zone,expire,detail,count) VALUES('$item','$storage','$zone','$expire','$detail','$count')");
+    q("insert into links(item,storage,zone,expire,detail,count) values('$item','$storage','$zone','$expire','$detail','$count')");
     if(!$_SESSION['query_error']){
         $_SESSION['query_error']="successfully link item/product to storage";
     }
@@ -137,6 +137,5 @@ default:
     break;
 }
 //);
-//$db->close();
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>
